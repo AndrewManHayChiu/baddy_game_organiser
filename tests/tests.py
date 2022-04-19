@@ -50,3 +50,7 @@ test_session.players[0].tier
 # Games can be created
 test_session.add_game(test_game)
 test_session.games[0]
+
+# Print session information
+test_session.info()
+test_session.info(verbose=True)

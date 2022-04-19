@@ -36,9 +36,11 @@ class Session:
             print('    Doubles:', self.doubles)
             print('    Skill levels:', self.skill_levels)
         print()
+        
         print('Players:')
-        for player in self.players:
-            print('    ', player.name)
+        for count, player in enumerate(self.players, start=1):
+            print('    ', count, player.name, '(', player.tier, ')')
         print()
+        
         print('Games:')
         

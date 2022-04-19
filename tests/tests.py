@@ -42,6 +42,11 @@ andrew = Player(name='Andrew')
 test_session.add_player(andrew)
 felix = Player(name='Felix')
 test_session.add_player(felix)
+test_session.add_player(Player(name='Billy'))
+test_session.add_player(Player(name='Terence'))
+player_5 = Player(name='Player 5')
+player_5.tier = 6 # Modify default tier; can be pulled from database
+test_session.add_player(player_5)
 
 # Can access player details
 test_session.players[0].name

@@ -1,5 +1,4 @@
 
-
 class Session:
     """a baddy session"""
     
@@ -8,6 +7,12 @@ class Session:
         self.session = session
         self.players = []
         self.games = []
+        self.courts = 6
+        self.doubles = True
+        self.points = 21
+        self.floor_type = 'wood'
+        self.skill_levels = 'open'
+        self.venue = 'dtba'
         
     def add_player(self, player):
         self.players.append(player)
@@ -20,15 +25,20 @@ class Session:
     
     def add_game(self, game):
         self.games.append(game)
-
-# Tests
-# test_session = Session(weekday='Tuesday', session='6:30')
-# test_session.weekday
-
-# test_session.players
-# test_session.add_player('Felix')
-# test_session.add_player('Andrew')
-# test_session.players
-
-# test_session.remove_player('Andrew')
-# test_session.players
+        
+    def info(self, verbose=False):
+        print('Session:', self.weekday, self.session)
+        if verbose == True:
+            print('    Venue:', self.venue)
+            print('    Courts:', self.courts)
+            print('    Floor type:', self.floor_type)
+            print('    Points:', self.points)
+            print('    Doubles:', self.doubles)
+            print('    Skill levels:', self.skill_levels)
+        print()
+        print('Players:')
+        for player in self.players:
+            print('    ', player.name)
+        print()
+        print('Games:')
+        

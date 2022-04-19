@@ -7,6 +7,7 @@ class Session:
         self.weekday = weekday
         self.session = session
         self.players = []
+        self.games = []
         
     def add_player(self, player):
         self.players.append(player)
@@ -16,6 +17,9 @@ class Session:
             self.players.remove(player)
         else:
             print('Player not in this session.')
+    
+    def add_game(self, game):
+        self.games.append(game)
 
 # Tests
 # test_session = Session(weekday='Tuesday', session='6:30')

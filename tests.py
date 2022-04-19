@@ -45,3 +45,6 @@ test_session.players[0].name
 test_session.players[0].tier
 
 # Games can be created
+
+test_session.add_game(test_game)
+test_session.games[0]

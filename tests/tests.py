@@ -66,3 +66,13 @@ for row in cur.execute("""
             WHERE type = 'table' AND name NOT LIKE 'sqlite_%';
             """):
     print(row)
+
+for row in cur.execute("""PRAGMA table_info([players]);"""):
+    print(row)
+
+for row in cur.execute("""SELECT * FROM players;"""):
+    print(row)
+
+cur.fetchall()
+
+conn.close()

@@ -18,6 +18,13 @@ def create_table(conn, create_table_sql):
     except Error as e:
         print(e)
 
+def insert_data(conn, insert_data_sql):
+    try:
+        c = conn.cursor()
+        c.execute(insert_data_sql)
+    except Error as e:
+        print(e)
+
 def main():
     database = 'test.db'
     
@@ -35,7 +42,7 @@ def main():
             game_type TEXT NOT NULL,
             win INTEGER NOT NULL,
             PRIMARY KEY (player_id, game_id),
-            FOREIGN KEY (player_id) # foregin keys must be at end of statement
+            FOREIGN KEY (player_id) 
                 REFERENCES players (player_id)
                 ON DELETE CASCADE ON UPDATE NO ACTION
         );
@@ -50,7 +57,26 @@ def main():
         );
     """
     
-    # Connects if available; creates if not available
+    sql_insert_player_data = """
+        INSERT INTO players (player_id, name)
+        VALUES
+            (1, 'Andrew'), 
+            (2, 'Felix'), 
+            (3, 'Billy'), 
+            (4, 'Terence'), 
+            (5, 'David')
+    """
+    
+    sql_insert_tier_data = """
+        INSERT INTO player_tiers (player_id, tier)
+        VALUES
+            (1, 8),
+            (2, 8),
+            (3, 8),
+            (4, 8),
+            (5, 7)
+    """
+    
     conn = create_connection(database)  
     
     # Create tables
@@ -59,8 +85,14 @@ def main():
         create_table(conn, sql_create_games_table)
         create_table(conn, sql_create_player_tiers_table)
     else:
-        print("Error - cannot create connection to the database.")
+        print("Error - cannot create connection to database.")
 
+    # Add data
+    if conn is not None:
+        insert_data(conn, sql_insert_player_data)
+        insert_data(conn, sql_insert_tier_data)
+    else:
+        print("Error - cannot create connection to database.")
 
 if  __name__ == '__main__':
     main()

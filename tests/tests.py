@@ -70,9 +70,13 @@ for row in cur.execute("""
 for row in cur.execute("""PRAGMA table_info([players]);"""):
     print(row)
 
-for row in cur.execute("""SELECT * FROM players;"""):
+conn = sqlite3.connect('test.db')
+cursor = conn.cursor()
+print("Connected to SQLite")
+cur.execute("""SELECT * FROM player_tiers""")
+records = cur.fetchall()
+len(records)
+for row in records:
     print(row)
 
-cur.fetchall()
-
-conn.close()
+cursor.close()

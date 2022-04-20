@@ -20,8 +20,10 @@ def create_table(conn, create_table_sql):
 
 def insert_data(conn, insert_data_sql):
     try:
-        c = conn.cursor()
-        c.execute(insert_data_sql)
+        cursor = conn.cursor()
+        cursor.execute(insert_data_sql)
+        conn.commit()
+        cursor.close()
     except Error as e:
         print(e)
 

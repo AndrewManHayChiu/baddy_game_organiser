@@ -5,6 +5,8 @@ from baddy.sessions import Session
 from baddy.games import Game
 from baddy.players import Player
 
+import sqlite3
+
 # sessions
 test_session = Session(weekday='Tuesday', session='6:30')
 test_session.weekday
@@ -54,3 +56,13 @@ test_session.games[0]
 # Print session information
 test_session.info()
 test_session.info(verbose=True)
+
+# Test db
+conn = sqlite3.connect('test.db')
+cur = conn.cursor()
+for row in cur.execute("""
+            SELECT name 
+            FROM sqlite_schema 
+            WHERE type = 'table' AND name NOT LIKE 'sqlite_%';
+            """):
+    print(row)

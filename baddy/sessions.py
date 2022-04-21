@@ -12,15 +12,18 @@ class Session:
         self.floor_type = 'wood'
         self.skill_levels = 'open'
         self.venue = 'dtba'
+        self.queue = []
         
     def add_player(self, player):
         self.players.append(player)
+        self.queue.append(player.name)
     
-    def remove_player(self, player):
-        if player in self.players:
-            self.players.remove(player)
+    def remove_player(self, player_name):
+        if player_name in self.queue:
+            self.queue.remove(player_name)
+            print(player_name, "has been removed from the queue.")
         else:
-            print('Player not in this session.')
+            print('Player not in the queue.')
     
     def add_game(self, game):
         self.games.append(game)
@@ -40,5 +43,9 @@ class Session:
         for count, player in enumerate(self.players, start=1):
             print('    ', count, player.name, '(' + str(player.tier) +')')
         print()
-
+        
+        print('Queue:')
+        print(self.queue)
+        print()
+        
         print('Games:')

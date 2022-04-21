@@ -54,29 +54,38 @@ def main():
         CREATE TABLE IF NOT EXISTS player_tiers (
             player_id INTEGER NOT NULL,
             tier INTEGER NOT NULL,
+            updated_at_date TEXT NOT NULL,
             FOREIGN KEY (player_id) 
                 REFERENCES players (player_id)
         );
     """
     
     sql_insert_player_data = """
-        INSERT INTO players (player_id, name)
+        INSERT OR REPLACE INTO players (player_id, name)
         VALUES
             (1, 'Andrew'), 
             (2, 'Felix'), 
             (3, 'Billy'), 
             (4, 'Terence'), 
-            (5, 'David')
+            (5, 'David Yeung'),
+            (6, 'David Ng'),
+            (7, 'David Wei'),
+            (8, 'James'),
+            (9, 'Kelvin')
     """
     
     sql_insert_tier_data = """
-        INSERT INTO player_tiers (player_id, tier)
+        INSERT OR REPLACE INTO player_tiers (player_id, tier, updated_at_date)
         VALUES
-            (1, 8),
-            (2, 8),
-            (3, 8),
-            (4, 8),
-            (5, 7)
+            (1, 8, '2022-04-21'),
+            (2, 8, '2022-04-21'),
+            (3, 8, '2022-04-21'),
+            (4, 8, '2022-04-21'),
+            (5, 7, '2022-04-21'),
+            (6, 6, '2022-04-21'),
+            (7, 7, '2022-04-21'),
+            (8, 8, '2022-04-21'),
+            (9, 9, '2022-04-21')
     """
     
     conn = create_connection(database)  

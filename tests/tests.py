@@ -73,10 +73,12 @@ for row in cur.execute("""PRAGMA table_info([players]);"""):
 conn = sqlite3.connect('test.db')
 cursor = conn.cursor()
 print("Connected to SQLite")
-cur.execute("""SELECT * FROM player_tiers""")
-records = cur.fetchall()
+cursor.execute("""SELECT * FROM player_tiers""")
+records = cursor.fetchall()
 len(records)
 for row in records:
     print(row)
 
 cursor.close()
+
+# cursor.execute("""DROP TABLE player_tiers""")

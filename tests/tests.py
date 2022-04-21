@@ -12,8 +12,13 @@ engine = create_engine('sqlite:///test.db', echo=False)
 conn = engine.connect()
 
 # Extract player from database
-player = extract_player(player_id=2)
+player = extract_player(player_id=2) # Extracts as a tuple
 player.player_id
+player.name
+player.gender
+player.tier
+player = Player(player_id=1) # extracts as a class
+player.id
 player.name
 player.gender
 player.tier

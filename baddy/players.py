@@ -3,10 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 from sqlalchemy.exc import SQLAlchemyError
 
-engine = create_engine('sqlite:///test.db', echo=False)
-conn = engine.connect()
+database = 'sqlite:///test.db'
 
-def extract_player(player_id, connection=conn):
+def extract_player(player_id):
+    engine = create_engine(database, echo=False)
+    conn = engine.connect()
+
     t = text("""
                 SELECT DISTINCT 
                     players.player_id, 
@@ -20,7 +22,10 @@ def extract_player(player_id, connection=conn):
     result = conn.execute(t).fetchall()
     return(result[0])
 
-def create_player(connection=conn):
+def create_player():
+    engine = create_engine(database, echo=False)
+    conn = engine.connect()
+
     print("Enter new player's name")
     name = input()
     

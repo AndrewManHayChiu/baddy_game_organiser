@@ -38,7 +38,7 @@ class Session:
         
         print('Players:')
         for count, player in enumerate(self.players, start=1):
-            print('    ', count, player.name, '(', player.tier, ')')
+            print('    ', count, player.name, '(' + str(player.tier) +')')
         print()
 
         print('Games:')

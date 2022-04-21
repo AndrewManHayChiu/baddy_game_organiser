@@ -2,11 +2,9 @@ import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from baddy.sessions import Session
-from baddy.sessions import extract_player
 from baddy.games import Game
 from baddy.players import Player
-
-import sqlite3
+from baddy.players import extract_player
 
 # sessions
 test_session = Session(weekday='Tuesday', session='6:30')
@@ -47,15 +45,15 @@ test_session.add_player(Player(player_id=3))
 test_session.add_player(Player(player_id=4))
 test_session.add_player(Player(player_id=5))
 
+# Print session information
+test_session.info(verbose=True)
+
 # Can access player details
-# test_session.players[0].name
-# test_session.players[0].tier
+test_session.players[0].name
+test_session.players[0].tier
+test_session.players[0].gender
 # test_session.players[1].name
 # test_session.players[1].tier
-
-# Print session information
-test_session.info()
-test_session.info(verbose=True)
 
 # Games can be created
 test_session.add_game(test_game)

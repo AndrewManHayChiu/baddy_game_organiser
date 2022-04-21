@@ -1,4 +1,3 @@
-
 class Session:
     """a baddy session"""
     
@@ -41,6 +40,5 @@ class Session:
         for count, player in enumerate(self.players, start=1):
             print('    ', count, player.name, '(', player.tier, ')')
         print()
-        
+
         print('Games:')
-        

@@ -1,4 +1,3 @@
-
 class Session:
     """a baddy session"""
     
@@ -41,4 +40,3 @@ class Session:
             print('    ', player.name)
         print()
         print('Games:')
-        

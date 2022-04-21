@@ -2,6 +2,7 @@ import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from baddy.sessions import Session
+from baddy.sessions import extract_player
 from baddy.games import Game
 from baddy.players import Player
 
@@ -29,25 +30,26 @@ test_game.team_1_score = 22
 test_game.team_1_score
 test_game.team_2_score
 
-# players
-test_player = Player(name='Andrew')
-test_player.name
-test_player.tier
-test_player.tier = 'shit'
-test_player.tier
+# Extract player from database
+player = Player(player_id=1)
+player.id
+player.name
+player.tier
 
 # Create a new session and add players to session
 test_session = Session(weekday='Tuesday', session='6:30')
 
-# Players are created when they sign in.
-andrew = Player(name='Andrew')
-test_session.add_player(andrew)
-felix = Player(name='Felix')
-test_session.add_player(felix)
+# Add players using Player id
+test_session.add_player(Player(player_id=1))
+test_session.add_player(Player(player_id=2))
+test_session.add_player(Player(player_id=3))
+test_session.add_player(Player(player_id=4))
 
 # Can access player details
 test_session.players[0].name
 test_session.players[0].tier
+test_session.players[1].name
+test_session.players[1].tier
 
 # Games can be created
 test_session.add_game(test_game)
@@ -82,3 +84,4 @@ for row in records:
 cursor.close()
 
 # cursor.execute("""DROP TABLE player_tiers""")
+

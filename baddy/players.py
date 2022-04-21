@@ -10,6 +10,7 @@ def extract_player(player_id, connection=conn):
                 SELECT DISTINCT 
                     players.player_id, 
                     players.name, 
+                    players.gender,
                     player_tiers.tier
                 FROM players
                 LEFT JOIN player_tiers on players.player_id = player_tiers.player_id
@@ -25,4 +26,5 @@ class Player:
         player_data = extract_player(player_id=player_id)
         self.id = player_id
         self.name = player_data[1]
-        self.tier = player_data[2]
+        self.gender = player_data[2]
+        self.tier = player_data[3]

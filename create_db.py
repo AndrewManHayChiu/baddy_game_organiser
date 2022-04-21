@@ -33,7 +33,8 @@ def main():
     sql_create_players_table = """
         CREATE TABLE IF NOT EXISTS players (
             player_id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            gender TEXT
     );
     """
 
@@ -61,17 +62,17 @@ def main():
     """
     
     sql_insert_player_data = """
-        INSERT OR REPLACE INTO players (player_id, name)
+        INSERT OR REPLACE INTO players (player_id, name, gender)
         VALUES
-            (1, 'Andrew'), 
-            (2, 'Felix'), 
-            (3, 'Billy'), 
-            (4, 'Terence'), 
-            (5, 'David Yeung'),
-            (6, 'David Ng'),
-            (7, 'David Wei'),
-            (8, 'James'),
-            (9, 'Kelvin')
+            (1, 'Andrew', 'male'), 
+            (2, 'Felix', 'male'), 
+            (3, 'Billy', 'male'), 
+            (4, 'Terence', 'male'), 
+            (5, 'David Yeung', 'male'),
+            (6, 'David Ng', 'male'),
+            (7, 'David Wei', 'male'),
+            (8, 'James', 'male'),
+            (9, 'Kelvin', 'male')
     """
     
     sql_insert_tier_data = """

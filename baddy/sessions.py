@@ -1,3 +1,5 @@
+import pandas as pd
+
 class Session:
     """a baddy session"""
     
@@ -5,7 +7,7 @@ class Session:
         self.weekday = weekday
         self.session = session
         self.players = []
-        self.games = []
+        self.games = pd.DataFrame({'type': [], 'players': []})
         self.courts = 6
         self.doubles = True
         self.points = 21
@@ -25,27 +27,74 @@ class Session:
         else:
             print('Player not in the queue.')
     
-    def add_game(self, game):
-        self.games.append(game)
+    def add_game(self, game=None, auto=True):
+        if auto:
+            game = Game(queue=self.queue, auto=auto)
+        else:
+            pass
+                     
+        self.games = pd.concat([self.games,
+                                pd.DataFrame({
+                                    'type': [game.game_type], 
+                                    'players': [game.players]})])
         
+        # Move players to the back of the queue
+        for player in game.players:
+            self.queue.remove(player)
+            self.queue.append(player)
+    
     def info(self, verbose=False):
-        print('Session:', self.weekday, self.session)
+        print('SESSION INFO:')
         if verbose == True:
             print('    Venue:', self.venue)
+            print('    Time:', self.weekday, self.session)
             print('    Courts:', self.courts)
             print('    Floor type:', self.floor_type)
             print('    Points:', self.points)
             print('    Doubles:', self.doubles)
             print('    Skill levels:', self.skill_levels)
-        print()
+            print()
         
         print('Players:')
         for count, player in enumerate(self.players, start=1):
             print('    ', count, player.name, '(' + str(player.tier) +')')
         print()
         
-        print('Queue:')
-        print(self.queue)
+        print('Games played:', len(self.games))
         print()
         
-        print('Games:')
+        print('Queue:')
+        print(self.queue)
+
+
+class Game:
+    """
+        A baddy game
+        By default, MD, and automatic allocation from Session.queue
+        
+        game_types:
+            - MD: Men's Doubles
+            - WD: Women's Doubles
+            - XD: Mixed Doubles
+    """
+    
+    def __init__(self, queue, auto=True):
+        self.players = []
+        self.doubles = True
+        self.game_type = "MD"
+        # self.team_1 = []
+        # self.team_2 = []
+        # self.team_1_score = 21 # team 1 wins by default; can override this value
+        # self.team_2_score = ''
+
+        if auto:
+            self.players.extend(queue[0:4])
+        else:
+            pass
+    
+    def info(self):
+        print('GAME INFO')
+        print('Type:', self.game_type)
+        print('Players:')
+        for count, player in enumerate(self.players, start=1):
+            print('    ', count, player)

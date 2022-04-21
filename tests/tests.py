@@ -48,20 +48,17 @@ test_session.add_player(Player(player_id=6))
 # Print session information
 test_session.info(verbose=True)
 
+# Games can be created automatically
+test_session.add_game()
+test_session.games
+
+# And players are moved to the back of the Queue
+test_session.info(verbose=True)
+
+# Games can be also be created manually
+test_session.add_game(players=['David Yeung', 'Andrew', 'Felix', 'Terence'])
+test_session.info(verbose=True)
+
 # Player leaves; remove from queue
-test_session.queue
 test_session.remove_player(player_name='David Ng')
-test_session.queue
-
-# Can access player details
-# test_session.players[0].name
-# test_session.players[0].tier
-# test_session.players[0].gender
-# test_session.players[1].name
-# test_session.players[1].tier
-test_session.players
-
-# Games can be created
-test_session.add_game(test_game)
-test_session.games[0]
-
+test_session.info(verbose=True)

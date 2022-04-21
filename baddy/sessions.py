@@ -27,11 +27,11 @@ class Session:
         else:
             print('Player not in the queue.')
     
-    def add_game(self, game=None, auto=True):
-        if auto:
-            game = Game(queue=self.queue, auto=auto)
-        else:
-            pass
+    def add_game(self, players=[]):
+        if len(players) == 0: # no players are supplied; auto allocation
+            game = Game(queue=self.queue)
+        elif len(players) == 4: # if all 4 players are manually supplied
+            game = Game(queue=self.queue, players=players)
                      
         self.games = pd.concat([self.games,
                                 pd.DataFrame({
@@ -53,7 +53,7 @@ class Session:
             print('    Points:', self.points)
             print('    Doubles:', self.doubles)
             print('    Skill levels:', self.skill_levels)
-            print()
+            print() 
         
         print('Players:')
         for count, player in enumerate(self.players, start=1):
@@ -78,19 +78,14 @@ class Game:
             - XD: Mixed Doubles
     """
     
-    def __init__(self, queue, auto=True):
-        self.players = []
+    def __init__(self, queue, players=[]):
         self.doubles = True
         self.game_type = "MD"
-        # self.team_1 = []
-        # self.team_2 = []
-        # self.team_1_score = 21 # team 1 wins by default; can override this value
-        # self.team_2_score = ''
 
-        if auto:
-            self.players.extend(queue[0:4])
-        else:
-            pass
+        if len(players)  == 0: # no players are supplied; auto allocation
+            self.players = queue[0:4]
+        elif len(players) == 4: # if all 4 players are manually supplied
+            self.players = players
     
     def info(self):
         print('GAME INFO')

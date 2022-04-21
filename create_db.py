@@ -62,17 +62,17 @@ def main():
     """
     
     sql_insert_player_data = """
-        INSERT OR REPLACE INTO players (player_id, name, gender)
+        INSERT OR REPLACE INTO players (name, gender)
         VALUES
-            (1, 'Andrew', 'male'), 
-            (2, 'Felix', 'male'), 
-            (3, 'Billy', 'male'), 
-            (4, 'Terence', 'male'), 
-            (5, 'David Yeung', 'male'),
-            (6, 'David Ng', 'male'),
-            (7, 'David Wei', 'male'),
-            (8, 'James', 'male'),
-            (9, 'Kelvin', 'male')
+            ('Andrew', 'male'), 
+            ('Felix', 'male'), 
+            ('Billy', 'male'), 
+            ('Terence', 'male'), 
+            ('David Yeung', 'male'),
+            ('David Ng', 'male'),
+            ('David Wei', 'male'),
+            ('James', 'male'),
+            ('Kelvin', 'male')
     """
     
     sql_insert_tier_data = """
@@ -93,6 +93,7 @@ def main():
     
     # Create tables
     if conn is not None:
+        create_table(conn, "DROP TABLE players")
         create_table(conn, sql_create_players_table)
         create_table(conn, sql_create_games_table)
         create_table(conn, sql_create_player_tiers_table)

@@ -1,38 +1,26 @@
 import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+import sqlalchemy
+from sqlalchemy import create_engine
+
 from baddy.sessions import Session
-from baddy.games import Game
 from baddy.players import Player
-from baddy.players import extract_player
+from baddy.players import extract_player, create_player
 
-# sessions
-test_session = Session(weekday='Tuesday', session='6:30')
-test_session.weekday
-
-test_session.players
-test_session.add_player('Felix')
-test_session.add_player('Andrew')
-test_session.players
-
-test_session.remove_player('Andrew')
-test_session.players
-test_session.remove_player('Andrew')
-test_session.players
-
-# games
-test_game = Game()
-test_game.team_1
-test_game.team_1_score
-test_game.team_1_score = 22
-test_game.team_1_score
-test_game.team_2_score
+engine = create_engine('sqlite:///test.db', echo=False)
+conn = engine.connect()
 
 # Extract player from database
-player = Player(player_id=1)
-player.id
+player = extract_player(player_id=2)
+player.player_id
 player.name
+player.gender
 player.tier
+
+# Create a new player; adds to the database
+# TODO: Fix this
+# create_player()
 
 # Create a new session and add players to session
 test_session = Session(weekday='Tuesday', session='6:30')

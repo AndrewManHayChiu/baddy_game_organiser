@@ -1,6 +1,7 @@
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
+from sqlalchemy.exc import SQLAlchemyError
 
 engine = create_engine('sqlite:///test.db', echo=False)
 conn = engine.connect()
@@ -19,6 +20,27 @@ def extract_player(player_id, connection=conn):
     result = conn.execute(t).fetchall()
     return(result[0])
 
+def create_player(connection=conn):
+    print("Enter new player's name")
+    name = input()
+    
+    # Check if player's name already exists in the database
+
+    print("Is the player male, female or prefer not to say? (male/female/undefined)")
+    gender = input()
+    
+    print("Enter player's skill level (4 - 9):")
+    tier = input()
+    
+    # Save new player info to database
+    new_data = (None, name, gender)
+    q = text("INSERT INTO players VALUES (?, ?, ?)")
+    try:
+        conn.execute(q, new_data)
+    except SQLAlchemyError as e:
+        error = str(e.__dict__['orig'])
+        print(error)
+    
 class Player:
     """a player"""
     
@@ -28,3 +50,4 @@ class Player:
         self.name = player_data[1]
         self.gender = player_data[2]
         self.tier = player_data[3]
+        

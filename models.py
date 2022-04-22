@@ -11,29 +11,8 @@ engine = create_engine(connection_string, echo=True)
 
 Session = sessionmaker()
 
-"""
-class player
-    player_id int
-    name str
-    gender str
-"""
 
-"""
-class games
-    game_id int
-    player_id int
-    game_type str
-    win int
-    played_date datetime
-"""
-
-"""
-class player_tiers
-    player_id int
-    tier int
-    updated_at_date datetime
-"""
-
+# Using sqlalchemy, Python classes can be directly added to the database
 class Player(Base):
     __tablename__ = "players"
     player_id = Column(Integer, primary_key=True)

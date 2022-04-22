@@ -3,7 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 from sqlalchemy.exc import SQLAlchemyError
 
-database = 'sqlite:///test.db'
+from models import Session, engine
+
+session = Session(bind=engine)
 
 def extract_player(player_id):
     engine = create_engine(database, echo=False)

@@ -9,5 +9,10 @@ session = Session(bind=engine)
 #     print(player.player_id, player.name)
 
 # Extract individual data
-player = session.query(Player).filter(Player.player_id == 1).all()
+player = session.query(Player).filter(Player.player_id == 1).first()
 print(player)
+player
+player.name != None
+
+player = session.query(Player).filter(Player.player_id == 10).first()
+player.name

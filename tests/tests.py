@@ -4,28 +4,19 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 import sqlalchemy
 from sqlalchemy import create_engine
 
-from baddy.sessions import Session
-from baddy.players import Player
-from baddy.players import extract_player, create_player
+from models import Player, PlayerTiers, Session, engine
+from baddy.players import create_player, update_player_tier, extract_player
 
-engine = create_engine('sqlite:///test.db', echo=False)
-conn = engine.connect()
+session = Session(bind=engine)
 
-# Extract player from database
-player = extract_player(player_id=2) # Extracts as a tuple
+# Create, update and extract player data from database
+create_player(player_id=10, name='test', gender='female', tier=8)
+update_player_tier(player_id=1, tier=7)
+player = extract_player(player_id=1)
 player.player_id
 player.name
 player.gender
-player.tier
-player = Player(player_id=1) # extracts as a class
-player.id
-player.name
-player.gender
-player.tier
 
-# Create a new player; adds to the database
-# TODO: Fix this
-# create_player()
 
 # Create a new session and add players to session
 test_session = Session(weekday='Tuesday', session='6:30')

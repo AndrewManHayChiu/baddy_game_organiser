@@ -1,16 +1,23 @@
-from models import Player, Session, engine
+from models import Player, PlayerTiers, Session, engine
 
 session = Session(bind=engine)
 
-def create_player(name, gender):
-    new_player = Player(name=name, gender=gender)
-    session.add(new_player)
-    session.commit()
+def create_player(player_id, name, gender, tier):
+    if extract_player(player_id=player_id) is None:
+        new_player = Player(player_id=id, name=name, gender=gender)
+        player_tier = PlayerTiers(player_id=player_id, tier=tier)
+        session.add(new_player)
+        session.add(player_tier)
+        session.commit()
 
 def update_player_tier(player_id, tier):
-    player_tier = Player_tiers(player_id=player_id, tier=tier)
-    session.add(player_tier)
+    player_tier = session.query(PlayerTiers).filter(PlayerTiers.player_id == player_id).first()
+    player_tier.tier = tier
     session.commit()
+
+def extract_player(player_id):
+    result = session.query(Player).filter(Player.player_id == player_id).first()
+    return(result)
 
 # def extract_player(player_id):
 #     engine = create_engine(database, echo=False)

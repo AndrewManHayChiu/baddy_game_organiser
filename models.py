@@ -15,16 +15,25 @@ Session = sessionmaker()
 # Using sqlalchemy, Python classes can be directly added to the database
 class Player(Base):
     __tablename__ = "players"
+    
     player_id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False, unique=True)
     gender = Column(String, nullable=True)
     # games = relationship("Games", backref=backref("players"))
     
+    def __init__(self, player_id, name, gender):
+        self.player_id = player_id
+        self.name = name
+        self.gender = gender
+        
     def __repr__(self):
-        return f"<Player name={self.name}>"
+        return f"<Player name: {self.name}>"
     
-# ac = Player(player_id=1, name='Andrew Chiu', gender='male')
-# print(ac)
+ac = Player(player_id=1, name='Andrew Chiu', gender='male')
+print(ac)
+ac.name
+ac.player_id
+ac.gender
 
 class Games(Base):
     __tablename__ = "games"
@@ -34,7 +43,7 @@ class Games(Base):
     win = Column(Integer)
     played_date = Column(DateTime, default=datetime.utcnow)
 
-class Player_tiers(Base):
+class PlayerTiers(Base):
     __tablename__ = "player_tiers"
     player_id = Column(Integer, ForeignKey("players.player_id"), primary_key=True)
     tier = Column(Integer)

@@ -1,4 +1,4 @@
-# THe purpose of this script is to fill the database with dummy data
+# The purpose of this script is to fill the database with dummy data
 
 from models import Player, PlayerTiers, Session, engine
 from baddy.players import create_player, extract_player, update_player_tier

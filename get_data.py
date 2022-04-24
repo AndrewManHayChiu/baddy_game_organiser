@@ -1,4 +1,5 @@
 from models import Player, Session, engine
+from sqlalchemy import select
 
 session = Session(bind=engine)
 

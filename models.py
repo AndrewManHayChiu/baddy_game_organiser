@@ -1,25 +1,24 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Table, create_engine
-from sqlalchemy.orm import relationship, backref, sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship, declarative_base, sessionmaker
+from sqlalchemy.sql import func
 from datetime import datetime
 
 connection_string = 'sqlite:///test2.db'
 
 Base = declarative_base()
 
-engine = create_engine(connection_string, echo=True)
+engine = create_engine(connection_string, echo=True, future=True)
 
 Session = sessionmaker()
-
 
 # Using sqlalchemy, Python classes can be directly added to the database
 class Player(Base):
     __tablename__ = "players"
     
     player_id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False, unique=True)
+    name = Column(String(50))
     gender = Column(String, nullable=True)
-    # games = relationship("Games", backref=backref("players"))
     
     def __init__(self, player_id, name, gender):
         self.player_id = player_id
@@ -28,30 +27,42 @@ class Player(Base):
         
     def __repr__(self):
         return f"<Player name: {self.name}>"
-    
-ac = Player(player_id=1, name='Andrew Chiu', gender='male')
-print(ac)
-ac.name
-ac.player_id
-ac.gender
 
-class Games(Base):
+class Venue(Base):
+    __tablename__ = "venues"
+    
+    venue_id = Column(Integer, primary_key=True)
+    venue_name = Column(String)
+    
+    def __repr__(self):
+        return f"<Venue name: {self.venue_name}>"
+
+class Social(Base):
+    __tablename__ = "socials"
+    
+    social_id = Column(Integer, primary_key=True)
+    venue_id = Column(Integer, ForeignKey("venues.venue_id"))
+    social_name = Column(String)
+    social_time = Column(String)
+    
+    def __repr__(self):
+        return f"<Social name: {self.social_name}>"
+
+class Game(Base):
     __tablename__ = "games"
+    
     game_id = Column(Integer, primary_key=True)
+    social_id = Column(Integer, ForeignKey("socials.social_id"))
     player_id = Column(Integer, ForeignKey("players.player_id"))
     game_type = Column(String)
     win = Column(Integer)
-    played_date = Column(DateTime, default=datetime.utcnow)
+    played_date = Column(DateTime(timezone=True), server_default=func.now())
 
-class PlayerTiers(Base):
+class PlayerTier(Base):
     __tablename__ = "player_tiers"
+    
     player_id = Column(Integer, ForeignKey("players.player_id"), primary_key=True)
     tier = Column(Integer)
-    updated_at_date = Column(DateTime, default=datetime.utcnow)
-
-player_games = Table(
-        "player_games",
-        Base.metadata,
-        Column("player_id", Integer, ForeignKey("players.player_id")),
-        Column("game_id", Integer, ForeignKey("games.game_id")),
-    )
+    updated_at_date = Column(DateTime(timezone=True), server_default=func.now())
+    
+    

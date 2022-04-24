@@ -13,6 +13,8 @@ engine = create_engine(connection_string, echo=True, future=True)
 Session = sessionmaker()
 
 # Using sqlalchemy, Python classes can be directly added to the database
+
+# TODO: Create relationship between Player and PlayerTier tables
 class Player(Base):
     __tablename__ = "players"
     
@@ -33,6 +35,7 @@ class Venue(Base):
     
     venue_id = Column(Integer, primary_key=True)
     venue_name = Column(String)
+    floor_type = Column(String)
     
     def __repr__(self):
         return f"<Venue name: {self.venue_name}>"
@@ -43,7 +46,10 @@ class Social(Base):
     social_id = Column(Integer, primary_key=True)
     venue_id = Column(Integer, ForeignKey("venues.venue_id"))
     social_name = Column(String)
+    social_weekday = Column(String)
     social_time = Column(String)
+    doubles = Column(Integer, default=1)
+    social_skill_levels = Column(String, default='open')
     
     def __repr__(self):
         return f"<Social name: {self.social_name}>"

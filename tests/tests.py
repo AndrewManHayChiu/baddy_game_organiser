@@ -1,13 +1,21 @@
 import os, sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import sqlalchemy
 from sqlalchemy import create_engine
 
-from models import Player, PlayerTiers, Session, engine
+from models import Player, PlayerTier, Session, engine
 from baddy.players import create_player, update_player_tier, extract_player
 
 session = Session(bind=engine)
+
+player = Player(name='ac', gender='male')
+tier = PlayerTier(tier_id=1, player_id=1, tier=6)
+tier.tier_id
+tier.tier
+tier.player_id
+tier.updated_at_date
+
+
 
 # Create, update and extract player data from database
 create_player(player_id=10, name='test', gender='female', tier=8)
@@ -16,7 +24,6 @@ player = extract_player(player_id=1)
 player.player_id
 player.name
 player.gender
-
 
 # Create a new session and add players to session
 test_session = Session(weekday='Tuesday', session='6:30')

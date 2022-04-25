@@ -5,7 +5,7 @@ from baddy.players import create_player, extract_player, update_player_tier
 Base.metadata.create_all(engine)
 
 # Connect to sqlite database
-session = Session(bind=engine)
+session = Session(bind=engine)  
 
 # Generate dummy data
 players = [

@@ -21,6 +21,9 @@ class Player(Base):
     player_id = Column(Integer, primary_key=True)
     name = Column(String(50))
     gender = Column(String, nullable=True)
+    tier = relationship("PlayerTier")
+    # game = relationship("Game", back_populates="player")
+    
     
     def __init__(self, player_id, name, gender):
         self.player_id = player_id
@@ -51,6 +54,8 @@ class Social(Base):
     doubles = Column(Integer, default=1)
     social_skill_levels = Column(String, default='open')
     
+    # game = relationship("Game", back_populates="social")
+    
     def __repr__(self):
         return f"<Social name: {self.social_name}>"
 
@@ -63,12 +68,21 @@ class Game(Base):
     game_type = Column(String)
     win = Column(Integer)
     played_date = Column(DateTime(timezone=True), server_default=func.now())
+    
+    # player = relationship("Player", back_populates="game")
+    # social = relationship("Social", back_populates="game")
+    
+    def __repr__(self):
+        return f"<Game type: {self.game_type}>"
 
+# Separate player tiers table because tiers can change over time
+# and because not every socials may use tiers
 class PlayerTier(Base):
     __tablename__ = "player_tiers"
-    
+    tier_id = Column(Integer, primary_key=True)
     player_id = Column(Integer, ForeignKey("players.player_id"), primary_key=True)
     tier = Column(Integer)
     updated_at_date = Column(DateTime(timezone=True), server_default=func.now())
     
-    
+    def __repr__(self):
+        return f"<Tier: {self.tier}>"

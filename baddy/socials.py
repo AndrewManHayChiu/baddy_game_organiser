@@ -1,19 +1,24 @@
 import pandas as pd
 
+# Migrate classes to sqlalchemy ORM classes
+
+# TODO: Implementing players and queues from Session to fit in with sqlalchemy
+#
+
 class Session:
     """a baddy session"""
     
     def __init__(self, weekday, session):
-        self.weekday = weekday
+        # self.weekday = weekday
         self.session = session
         self.players = []
         self.games = pd.DataFrame({'type': [], 'players': []})
         self.courts = 6
-        self.doubles = True
+        # self.doubles = True
         self.points = 21
-        self.floor_type = 'wood'
-        self.skill_levels = 'open'
-        self.venue = 'dtba'
+        # self.floor_type = 'wood'
+        # self.skill_levels = 'open'
+        # self.venue = 'dtba'
         self.queue = []
         
     def add_player(self, player):
